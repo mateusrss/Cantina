@@ -43,7 +43,7 @@ input,textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:
 <div id="menu"></div>
 <div class="box" id="form">
 <label>Seu nome<input id="nome" placeholder="Ex.: Maria"></label>
-<label style="display:block;margin-top:10px">Observações (opcional)<textarea id="obs" rows="2" placeholder="Ex.: retirar após o culto"></textarea></label>
+<label style="display:block;margin-top:10px">Observações (opcional)<textarea id="obs" rows="2" placeholder="Ex.: complementos do açaí, sabor do suco"></textarea></label>
 <div id="aviso"></div>
 <button id="send" disabled>Enviar pedido pelo WhatsApp</button>
 </div>
@@ -57,18 +57,16 @@ const MSG_FECHADO="Loja fechada no momento";
 const PEDIDO_MIN=0;                // valor mínimo do pedido (0 = sem mínimo)
 // cat, nome, desc, preco | opcionais: estoque (máx. por pedido), esgotado:true, top:true
 const ITEMS=[
-{cat:"Salgados",nome:"Pastel de carne",desc:"Recheio de carne temperada",preco:6},
-{cat:"Salgados",nome:"Pastel de queijo",desc:"Queijo derretido",preco:6},
-{cat:"Salgados",nome:"Coxinha",desc:"Frango cremoso",preco:5,top:true},
-{cat:"Salgados",nome:"Esfiha",desc:"Carne ou queijo",preco:5,esgotado:true},
-{cat:"Lanches",nome:"Cachorro-quente",desc:"Pão, salsicha, molho e batata palha",preco:7,top:true,estoque:30},
-{cat:"Lanches",nome:"Misto quente",desc:"Queijo e presunto",preco:6},
-{cat:"Doces",nome:"Açaí",desc:"Copo com granola e banana",preco:12,top:true},
-{cat:"Doces",nome:"Bolo (fatia)",desc:"Bolo do dia",preco:4},
-{cat:"Doces",nome:"Brigadeiro",desc:"Unidade",preco:3},
-{cat:"Bebidas",nome:"Refrigerante lata",desc:"350 ml",preco:5,top:true},
-{cat:"Bebidas",nome:"Suco",desc:"Copo 300 ml",preco:4},
-{cat:"Bebidas",nome:"Água",desc:"500 ml",preco:3},
+{cat:"Açaí",nome:"Açaí",desc:"Com 4 complementos à sua escolha",preco:12,top:true},
+{cat:"Salgados",nome:"Coxinha",desc:"",preco:5,top:true},
+{cat:"Salgados",nome:"Pastel de presunto e queijo",desc:"",preco:6},
+{cat:"Salgados",nome:"Pastel de carne",desc:"",preco:6},
+{cat:"Salgados",nome:"Kibe",desc:"",preco:5},
+{cat:"Lanches",nome:"Cachorro-quente",desc:"",preco:7,top:true},
+{cat:"Bebidas",nome:"Suco",desc:"",preco:4},
+{cat:"Bebidas",nome:"Água",desc:"",preco:3},
+{cat:"Bebidas",nome:"Refrigerante lata",desc:"",preco:5,top:true},
+{cat:"Bebidas",nome:"Refrigerante garrafinha",desc:"",preco:4},
 ];
 // ========================
 const $=id=>document.getElementById(id);
