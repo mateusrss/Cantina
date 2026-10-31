@@ -32,4 +32,14 @@ public class ProdutosController(CantinaDbContext contexto) : ControllerBase
         await contexto.SaveChangesAsync();
         return Ok(produto);
     }
+    [HttpPut("{id}/estoque")]
+    public async Task<ActionResult<Produto>> DefinirEstoque(int id, DefinirEstoqueDto dto){
+        var produto = await contexto.Produtos.FindAsync(id);
+        if (produto is null)
+            return NotFound();
+        
+        produto.QuantidadeEstoque = dto.Quantidade;
+        await contexto.SaveChangesAsync();
+        return Ok(produto);
+    }
 }
