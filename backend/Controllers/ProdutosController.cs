@@ -42,4 +42,20 @@ public class ProdutosController(CantinaDbContext contexto) : ControllerBase
         await contexto.SaveChangesAsync();
         return Ok(produto);
     }
+    [HttpPatch("{id}/estoque")]
+    public async Task<ActionResult<Produto>> AjustarEstoque(int id, AjustarEstoqueDto dto)
+    { 
+        var produto = await contexto.Produtos.FindAsync(id);
+        if (produto is null)
+            return NotFound(); 
+
+        var novaQuantidade = produto.QuantidadeEstoque + dto.Ajuste;
+        if (novaQuantidade < 0)
+            return BadRequest("O estoque nao pode ficar negativo");
+
+        produto.QuantidadeEstoque = novaQuantidade;
+        await contexto.SaveChangesAsync();
+        return Ok(produto);
+
+   }    
 }
