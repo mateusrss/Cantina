@@ -58,4 +58,16 @@ public class ProdutosController(CantinaDbContext contexto) : ControllerBase
         return Ok(produto);
 
    }    
+   [HttpPatch("{id}/ativo")]
+   public async Task<ActionResult<Produto>> DefinirAtivo(int id, DefinirtAtivoDto dto)
+   {
+        var produto = await contexto.Produtos.FindAsync(id);
+        if (produto is null)
+            return NotFound();
+
+        produto.Ativo = dto.Ativo!.Value;
+        await contexto.SaveChangesAsync();
+            return Ok(produto);
+
+   }
 }
