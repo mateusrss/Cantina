@@ -41,7 +41,7 @@ export default function App()
     <div className='pagina'>
       <h1 className='boas-vindas'>Bem-vindo à nossa cantina!</h1>    
       
-      {produtos.map((produto) => (
+      {produtos.filter((produto) => produto.ativo).map((produto) => (
         <div className='cartao' key={produto.id}>
           <h3>{produto.nome}</h3>
 
@@ -50,9 +50,18 @@ export default function App()
           </p>
           <p>Quantidade: {quantidadeDe(produto.id)}</p>
           <p>Subtotal:  R$ {subtotal(produto).toFixed(2).replace(".",",")}</p>
-          <button type='button' onClick={() => aumentar(produto.id)}>+</button>
+          {produto.quantidadeEstoque === 0 && <p>Esgotado</p>}
+          
+          <button 
+          type='button'
+          disabled={quantidadeDe(produto.id) >= produto.quantidadeEstoque}
+          onClick={() => aumentar(produto.id)}
+          >+</button>
 
-          <button type='button' onClick={() => diminuir(produto.id)}>-</button>
+          <button
+          type='button'
+          onClick={() => diminuir(produto.id)}
+          >-</button>
           
         </div>
       ))}
