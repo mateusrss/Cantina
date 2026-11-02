@@ -1,26 +1,33 @@
 import './index.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const produtos = [
-  { id: 1, nome: "Coxinha", preco: 5.00 },
-  { id: 2, nome: "Coca-Cola", preco: 5.00 },
-  { id: 3, nome: "Cachorro Quente", preco: 8.00 },
-];
 
-export default function App() {
-  const [quantidades, setQuantidades] = useState({1:0, 2:0, 3:0});
+export default function App()
+ {
+  const [quantidades, setQuantidades] = useState({});
+  const [produtos, setProdutos] = useState([]);
+
+  function quantidadeDe(id){
+    return quantidades[id] || 0;
+}
+
+  useEffect(() => {
+    fetch("http://localhost:5222/api/produtos")
+      .then((resposta) => resposta.json())
+      .then((dados) => setProdutos(dados));
+  }, []);
 
   function aumentar (id) {
-    setQuantidades ({...quantidades, [id]: quantidades[id] + 1})
+    setQuantidades ({...quantidades, [id]: quantidadeDe(id) + 1})
   }
 
   function diminuir(id) {
-    if (quantidades[id] > 0){
-      setQuantidades({...quantidades, [id]: quantidades[id] - 1});
+    if (quantidadeDe(id) > 0){
+      setQuantidades({...quantidades, [id]: quantidadeDe(id) - 1});
     }
   }
   function subtotal(produto) {
-    return produto.preco * quantidades[produto.id]
+    return produto.preco * quantidadeDe(produto.id)
   }
   function totalGeral() {
     let total = 0
@@ -41,7 +48,7 @@ export default function App() {
           <p>
             Preço: R$ {produto.preco.toFixed(2).replace(".", ",")}
           </p>
-          <p>Quantidade: {quantidades[produto.id]}</p>
+          <p>Quantidade: {quantidadeDe(produto.id)}</p>
           <p>Subtotal:  R$ {subtotal(produto).toFixed(2).replace(".",",")}</p>
           <button type='button' onClick={() => aumentar(produto.id)}>+</button>
 
